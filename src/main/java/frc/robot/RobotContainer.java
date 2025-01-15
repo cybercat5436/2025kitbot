@@ -53,12 +53,18 @@ public class RobotContainer {
 
     m_driverController.x()
       .whileTrue(new InstantCommand(() -> coral.startMotor(0.3)))
-      .onFalse(new InstantCommand(() -> coral.stopMotor()));
-      
+      .onFalse(new InstantCommand(() -> coral.stopMotor()));      
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    kitChassis.setDefaultCommand(new InstantCommand(
+      () -> kitChassis.drive(
+        () -> -m_driverController.getLeftY(),
+        () -> m_driverController.getRightX()
+      ), kitChassis
+    ));
   }
 
   /**
