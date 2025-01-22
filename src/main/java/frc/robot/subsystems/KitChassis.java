@@ -19,10 +19,10 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 public class KitChassis extends SubsystemBase {
   /** Creates a new chassis. */
   private DifferentialDrive drive;
-  private SparkMax leftFront = new SparkMax(10, MotorType.kBrushed);
-  private SparkMax leftBack = new SparkMax(11, MotorType.kBrushed);
-  private SparkMax rightBack = new SparkMax(12, MotorType.kBrushed);
-  private SparkMax rightFront = new SparkMax(13, MotorType.kBrushed);
+  private SparkMax leftFront = new SparkMax(10, MotorType.kBrushless);
+  private SparkMax leftBack = new SparkMax(11, MotorType.kBrushless);
+  private SparkMax rightBack = new SparkMax(12, MotorType.kBrushless);
+  private SparkMax rightFront = new SparkMax(13, MotorType.kBrushless);
   public KitChassis() {
     SparkMaxConfig rightSideConfig = new SparkMaxConfig();
     SparkMaxConfig globalConfig = new SparkMaxConfig();
@@ -30,6 +30,7 @@ public class KitChassis extends SubsystemBase {
     SparkMaxConfig rightBackConfig = new SparkMaxConfig();
     leftBack.resumeFollowerMode();
     drive = new DifferentialDrive(leftFront::set, rightFront::set);
+    drive.setSafetyEnabled(true);
 
     globalConfig
       .smartCurrentLimit(50)
